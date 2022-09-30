@@ -23,13 +23,20 @@ echo $?
 
 
 # https://github.com/CompEvol/beast2/archive/refs/heads/master.zip
-git clone https://github.com/CompEvol/beast2.git
+# git clone https://github.com/CompEvol/beast2.git
 
+
+wget --quiet https://github.com/CompEvol/beast2/releases/download/v2.6.4/BEAST_with_JRE.v2.6.4.Linux.tgz
+tar xfz BEAST_with_JRE.v2.6.4.Linux.tgz
+# tar file already contain
+#  beast/lib/beast.jar
+#  beast/lib/launcher.jar
+
+# so no need to download these other pieces separately
+# left for now for debug use
 mkdir Beast_Jar
 cd    Beast_Jar
-
 wget --quiet https://github.com/CompEvol/beast2/releases/download/v2.6.4/beast.jar
 wget --quiet https://github.com/CompEvol/beast2/releases/download/v2.6.4/launcher.jar
-wget --quiet https://github.com/CompEvol/beast2/releases/download/v2.6.4/BEAST_with_JRE.v2.6.4.Linux.tgz
 
 date
