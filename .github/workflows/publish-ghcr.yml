@@ -16,12 +16,12 @@ on:
   #  - cron: '38 7 * * *'
   push:
     ##branches: [ main ]
-    branches: [ main, 'v*', 'v*.*.*', 'r*.*.*' ]
+    branches: [ main, 'v*', 'v*.*.*', 'r*', 'r*.*.*' ]
     # Publish semver tags as releases.
-    tags: [ 'v*', 'v*.*.*', 'r*.*.*' ]
+    tags: [ 'v*', 'v*.*.*', 'r*', 'r*.*.*' ]
   pull_request:
     ##branches: [ main ]
-    branches: [ main, 'v*', 'v*.*.*', 'r*.*.*' ]
+    branches: [ main, 'v*', 'v*.*.*', 'r*', 'r*.*.*' ]
 
 
 env:
