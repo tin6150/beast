@@ -63,7 +63,8 @@ RUN echo  ''  ;\
     cd /opt/gitrepo/container     ;\
     git branch |tee /opt/gitrepo/container/git.branch.out.txt                 ;\
     # the install from source repo create dir, so cd /opt/gitrepo             ;\
-    cd /opt/gitrepo               ;\
+    cd /opt/gitrepo                                                           ;\
+    ln -s /opt/gitrepo/container/install_beast_src.sh .                       ;\
     bash -x install_beast_src.sh 2>&1 | tee install_beast_src.log             ;\
     cd /    ;\
     echo ""
