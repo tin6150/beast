@@ -25,30 +25,12 @@ RUN echo  ''  ;\
     export TERM=dumb      ;\
     export NO_COLOR=TRUE  ;\
     apt-get update ;\
-    apt-get -y --quiet install screen tmux ;\
+    apt-get -y --quiet install git git-all screen tmux  ;\
     cd /    ;\
     echo ""
-
-RUN echo  ''  ;\
-    touch _TOP_DIR_OF_CONTAINER_  ;\
-    echo "begining docker build process at " | tee -a _TOP_DIR_OF_CONTAINER_  ;\
-    date | tee -a       _TOP_DIR_OF_CONTAINER_ ;\
-    export TERM=dumb      ;\
-    export NO_COLOR=TRUE  ;\
-    cd /     ;\
-    echo ""  ;\
-    echo '==================================================================' ;\
-    echo " calling external shell script..." | tee -a _TOP_DIR_OF_CONTAINER_  ;\
-    date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
-    echo '==================================================================' ;\
-    bash -x install_beast.sh 2>&1 | tee install_beast.log                     ;\
-    cd /    ;\
-    echo ""
-
 
 RUN echo ''  ;\
     echo '==================================================================' ;\
-    apt-get -y --quiet install git git-all  ;\
     test -d /opt/gitrepo            || mkdir -p /opt/gitrepo             ;\
     test -d /opt/gitrepo/container  || mkdir -p /opt/gitrepo/container   ;\
     #the git command dont produce output, thought container run on the dir squatting on the git files.  COPY works... oh well
@@ -60,7 +42,29 @@ RUN echo ''  ;\
     echo ""
 
 # add some marker of how Docker was build.
-COPY Dockerfile* /opt/gitrepo/container/
+COPY .              /opt/gitrepo/container/
+#COPY Dockerfile*   /opt/gitrepo/container/
+
+
+RUN echo  ''  ;\
+    touch _TOP_DIR_OF_CONTAINER_  ;\
+    echo "begining docker build process at " | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    date | tee -a       _TOP_DIR_OF_CONTAINER_ ;\
+    export TERM=dumb      ;\
+    export NO_COLOR=TRUE  ;\
+    cd /     ;\
+    echo ""  ;\
+    echo '==================================================================' ;\
+    echo " calling external shell script..." | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    echo " cd to /opt/gitrepo/container/"    | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
+    echo '==================================================================' ;\
+    cd /opt/gitrepo/container     ;\
+    bash -x install_beast.sh 2>&1 | tee install_beast.log                     ;\
+    cd /    ;\
+    echo ""
+
+
 
 RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
