@@ -9,5 +9,6 @@
 git checkout v2.6.4 # from source 
 docker build -t tin6150/beast:v2.6.4 -f Dockerfile .  | tee LOG.Dockerfile.v264.txt
 docker run -it --entrypoint=bash tin6150/beast:v2.6.4
+docker run -v ~:/mnt -it --entrypoint=bash tin6150/beast:v2.6.4
 
 
