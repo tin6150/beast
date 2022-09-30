@@ -36,7 +36,7 @@ RUN echo ''  ;\
     test -d /opt/gitrepo/container  || mkdir -p /opt/gitrepo/container   ;\
     #the git command dont produce output, thought container run on the dir squatting on the git files.  COPY works... oh well
     #git branch |tee /opt/gitrepo/container/git.branch.out.txt            ;\
-    #git log --oneline --graph --decorate | tee /opt/gitrepo/container/git.lol.out.txt       ;\
+    git log --oneline --graph --decorate | tee /opt/gitrepo/container/git.lol.out.txt       ;\
     #--echo "--------" | tee -a _TOP_DIR_OF_CONTAINER_           ;\
     #--echo "git cloning the repo for reference/tracking" | tee -a _TOP_DIR_OF_CONTAINER_ ;\
     cd /     ;\
@@ -61,7 +61,8 @@ RUN echo  ''  ;\
     date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
     echo '==================================================================' ;\
     cd /opt/gitrepo/container     ;\
-    bash -x install_beast.sh 2>&1 | tee install_beast.log                     ;\
+    git branch |tee /opt/gitrepo/container/git.branch.out.txt                 ;\
+    bash -x install_beast_src.sh 2>&1 | tee install_beast_src.log             ;\
     cd /    ;\
     echo ""
 
