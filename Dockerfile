@@ -25,7 +25,8 @@ RUN echo  ''  ;\
     export TERM=dumb      ;\
     export NO_COLOR=TRUE  ;\
     apt-get update ;\
-    apt-get -y --quiet install git git-all screen tmux  ;\
+    apt-get -y --quiet install git git-all file wget curl gzip bash zsh fish tcsh less vim procps screen tmux ;\
+    apt-get -y --quiet install apt-file ;\
     cd /    ;\
     echo ""
 
@@ -70,10 +71,10 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.0929.2100"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.0930.1050"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.0929.210"
+ENV DBG_CONTAINER_VER  "Dockerfile 2022.0930.1050"
 ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles
