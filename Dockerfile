@@ -62,6 +62,8 @@ RUN echo  ''  ;\
     echo '==================================================================' ;\
     cd /opt/gitrepo/container     ;\
     git branch |tee /opt/gitrepo/container/git.branch.out.txt                 ;\
+    # the install from source repo create dir, so cd /opt/gitrepo             ;\
+    cd /opt/gitrepo               ;\
     bash -x install_beast_src.sh 2>&1 | tee install_beast_src.log             ;\
     cd /    ;\
     echo ""
@@ -72,10 +74,10 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.0930.1050"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.0930.1230"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.0930.1050"
+ENV DBG_CONTAINER_VER  "Dockerfile 2022.0930.1230"
 ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles

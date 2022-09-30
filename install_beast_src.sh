@@ -16,19 +16,20 @@ export DEBIAN_FRONTEND=noninteractive
 #apt-get -y --quiet install beast2-mcmc beast2-mcmc-examples beast2-mcmc-doc beagle beagle-doc 
 apt-get -y --quiet install beagle beagle-doc 
 echo $?
+apt-get -y --quiet install figtree bali-phy
+echo $?
+apt-get -y --quiet install mrbayes mybayes-doc mybayes-mpi
+echo $?
 
 
 # https://github.com/CompEvol/beast2/archive/refs/heads/master.zip
 git clone https://github.com/CompEvol/beast2.git
 
+mkdir Beast_Jar
+cd    Beast_Jar
+
 wget --quiet https://github.com/CompEvol/beast2/releases/download/v2.6.4/beast.jar
 wget --quiet https://github.com/CompEvol/beast2/releases/download/v2.6.4/launcher.jar
 wget --quiet https://github.com/CompEvol/beast2/releases/download/v2.6.4/BEAST_with_JRE.v2.6.4.Linux.tgz
-
-echo $?
-apt-get -y --quiet install figtree bali-phy
-echo $?
-apt-get -y --quiet install mrbayes mybayes-doc mybayes-mpi
-echo $?
 
 date
