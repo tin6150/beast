@@ -1,4 +1,7 @@
 # beast
 containarization of the BEAST phylogenetic software
 
-(moving to new repo beast2 for v2 of the New Zealand universe)
+v2: contain beast 2.6.3
+v1: contain beast 1.10.4, untested
+
+// packages from Debian GNU/Linux 11 (bullseye)
