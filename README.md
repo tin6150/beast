@@ -1,7 +1,11 @@
 # beast
 containarization of the BEAST phylogenetic software
 
-v2: contain beast 2.6.3
-v1: contain beast 1.10.4, untested
+v2.6.4: contain beast 2.6.3,  build from source
+r2.6.3: contain beast 2.6.3,  from Debian 11 bullseyes .deb package
+v1:     contain beast 1.10.4, from Debian 11 bullseyes .deb package, untested
 
-// packages from Debian GNU/Linux 11 (bullseye)
+// release -> os provided package
+// version -> compiled from source
+
+
