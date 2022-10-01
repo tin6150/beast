@@ -5,7 +5,8 @@
 
 
 #FROM debian:bullseye
-FROM nvidia/cuda
+FROM nvidia/cuda:devel
+# default aka :latest no longer supported.  https://hub.docker.com/r/nvidia/cuda
 
 MAINTAINER Tin (at) berkeley.edu
 ARG DEBIAN_FRONTEND=noninteractive
