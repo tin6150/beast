@@ -11,16 +11,16 @@ export TERM=dumb
 export NO_COLOR=TRUE
 export DEBIAN_FRONTEND=noninteractive
 
-# ubuntu focal package name
+# ubuntu focal package name (and debian 11 bullseye)
 # beast2-mcmc/stable 2.6.3+dfsg-2 all
 #apt-get -y --quiet install beast2-mcmc beast2-mcmc-examples beast2-mcmc-doc beagle beagle-doc 
-apt-get -y --quiet install beagle beagle-doc 
-echo $?
+
 apt-get -y --quiet install figtree bali-phy
 echo $?
 apt-get -y --quiet install mrbayes mybayes-doc mybayes-mpi
 echo $?
 
+#### install beast ####
 
 # https://github.com/CompEvol/beast2/archive/refs/heads/master.zip
 # git clone https://github.com/CompEvol/beast2.git

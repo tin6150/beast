@@ -4,7 +4,8 @@
 # see DevNotes.rst for more build details
 
 
-FROM debian:bullseye
+#FROM debian:bullseye
+FROM nvidia/cuda
 
 MAINTAINER Tin (at) berkeley.edu
 ARG DEBIAN_FRONTEND=noninteractive
@@ -56,12 +57,38 @@ RUN echo  ''  ;\
     cd /     ;\
     echo ""  ;\
     echo '==================================================================' ;\
+    echo '==== install beagle gpu lib ======================================' ;\
+    echo '==================================================================' ;\
     echo " calling external shell script..." | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     echo " cd to /opt/gitrepo/container/"    | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
     echo '==================================================================' ;\
     cd /opt/gitrepo/container     ;\
     git branch |tee /opt/gitrepo/container/git.branch.out.txt                 ;\
+    # the install from source repo create dir, so cd /opt/gitrepo             ;\
+    cd /opt/gitrepo                                                           ;\
+    ln -s /opt/gitrepo/container/install_beagle_src.sh .                      ;\
+    bash -x install_beagle_src.sh 2>&1 | tee install_beagle_src.log           ;\
+    cd /    ;\
+    echo ""
+
+
+RUN echo  ''  ;\
+    touch _TOP_DIR_OF_CONTAINER_  ;\
+    echo "begining docker build process at " | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    date | tee -a       _TOP_DIR_OF_CONTAINER_ ;\
+    export TERM=dumb      ;\
+    export NO_COLOR=TRUE  ;\
+    cd /     ;\
+    echo ""  ;\
+    echo '==================================================================' ;\
+    echo '==== install beast phylo sw ======================================' ;\
+    echo '==================================================================' ;\
+    echo " calling external shell script..." | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    echo " cd to /opt/gitrepo/container/"    | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
+    echo '==================================================================' ;\
+    cd /opt/gitrepo/container     ;\
     # the install from source repo create dir, so cd /opt/gitrepo             ;\
     cd /opt/gitrepo                                                           ;\
     ln -s /opt/gitrepo/container/install_beast_src.sh .                       ;\
@@ -75,10 +102,10 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.0930.1230"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.0930.1630"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.0930.1230"
+ENV DBG_CONTAINER_VER  "Dockerfile 2022.0930.1630"
 ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles
@@ -91,7 +118,6 @@ ENV TEST_DOCKER_ENV_REF https://vsupalov.com/docker-arg-env-variable-guide/#sett
 ENV TEST_DOCKER_ENV_YEQ1="Dockerfile ENV assignment as foo=bar, yes use of ="
 ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, both seems to work"
 
-
 # unsure how to append/add to PATH?  likely have to manually rewrite the whole ENV var
 #ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/conda/bin
 # above is PATH in :integrationU where R 4.1.1 on Debian 11  works on Ubuntu 16.04 path
@@ -100,8 +126,8 @@ ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, bo
 #-- unset path to ensure it didn't make Rscript behave worse cuz somehow "test" got masked/lost
 
 
-
-ENTRYPOINT [ "/bin/bash" ]
+ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
+#ENTRYPOINT [ "/bin/bash" ]
 #ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
 #ENTRYPOINT [ "Rscript", "/main.R" ]
 
