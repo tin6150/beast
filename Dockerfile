@@ -130,7 +130,8 @@ ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, bo
 #ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/.singularity.d/libs:/usr/local/lib
 
 ENV JAVA_HOME=/usr/bin
-CMD /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher $*
+#CMD /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher $*
+CMD /opt/gitrepo/beast/bin/beast 
 # https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact
 
 #ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
