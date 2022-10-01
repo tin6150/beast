@@ -19,17 +19,16 @@ apt-get -y --quiet install cmake build-essential autoconf automake libtool git p
 
 #### install beagle ####
 
-mkdir /opt/beagle-lib # destination dir
 
 git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git
 cd beagle-lib
 mkdir build
 cd build
 #cmake -DCMAKE_INSTALL_PREFIX:PATH=$HOME ..
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/beagle-dev ..
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/lib64 ..
 make install
 
 echo $?
 date
 
-echo "export LD_LIBRARY_PATH=/opt/beagle-dev/lib:$LD_LIBRARY_PATH"  > /etc/profile.d/beagle-dev.sh
+echo "export LD_LIBRARY_PATH=/opt/beagle-lib/lib:/lib64:$LD_LIBRARY_PATH"  > /etc/profile.d/beagle-lib.sh
