@@ -24,11 +24,15 @@ git clone --depth=1 https://github.com/beagle-dev/beagle-lib.git
 cd beagle-lib
 mkdir build
 cd build
+
+mkdir -p /opt/libbeagle
 #cmake -DCMAKE_INSTALL_PREFIX:PATH=$HOME ..
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/lib64 ..
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/libbeagle ..
+make install
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..    # so that it also add the libs to /usr/lib
 make install
 
 echo $?
 date
 
-echo "export LD_LIBRARY_PATH=/opt/beagle-lib/lib:/lib64:$LD_LIBRARY_PATH"  > /etc/profile.d/beagle-lib.sh
+echo "export LD_LIBRARY_PATH=/opt/libbeagle/lib:/lib64:$LD_LIBRARY_PATH"  > /etc/profile.d/libbeagle.sh
