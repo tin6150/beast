@@ -17,10 +17,17 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y --quiet install figtree bali-phy
 echo $?
-apt-get -y --quiet install mrbayes mybayes-doc mybayes-mpi
+apt-get -y --quiet install mrbayes mrbayes-doc mrbayes-mpi 
 echo $?
 
 #### install beast ####
+
+echo "======================================================================"
+echo "===== installing beast from their git repo release ==================="
+echo "======================================================================"
+
+# beagle-lib env to use with gpu created by previous install script
+[[ -f /etc/profile.d/libbeagle.sh ]] && source /etc/profile.d/libbeagle.sh
 
 # https://github.com/CompEvol/beast2/archive/refs/heads/master.zip
 # git clone https://github.com/CompEvol/beast2.git

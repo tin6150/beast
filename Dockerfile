@@ -126,11 +126,14 @@ ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, bo
 #-- ENV PATH=/usr/lib/R/bin/exec:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #-- unset path to ensure it didn't make Rscript behave worse cuz somehow "test" got masked/lost
 
+# /usr/local/lib is searched by beagle, no need to set it
+#ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/.singularity.d/libs:/usr/local/lib
 
-ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/.singularity.d/libs:/opt/libbeagle/lib
+ENV JAVA_HOME=/usr/bin
+CMD /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher $*
+# https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact
 
-
-ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
+#ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
 #ENTRYPOINT [ "/bin/bash" ]
 #ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
 #ENTRYPOINT [ "Rscript", "/main.R" ]
