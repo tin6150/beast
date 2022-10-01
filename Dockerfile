@@ -5,7 +5,7 @@
 
 
 #FROM debian:bullseye
-FROM nvidia/cuda:devel
+FROM nvidia/cuda:11.7.1-devel-ubuntu22.04
 # default aka :latest no longer supported.  https://hub.docker.com/r/nvidia/cuda
 
 MAINTAINER Tin (at) berkeley.edu
