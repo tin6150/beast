@@ -4,11 +4,11 @@
 # see DevNotes.rst for more build details
 
 
-#FROM debian:bullseye
+## FROM debian:bullseye ## used by r* for OS package without beagle lib for gpu
 ## FROM nvidia/cuda:11.7.1-devel-ubuntu22.04  # hung A5000 with cuda 11.4/centos 7.9 (b15)
+## FROM nvidia/cuda:11.2.1-devel-ubuntu18.04  # n0005 CUDA 11.2 >>  wrong opencl-icd
 ## FROM nvidia/cuda:11.4.2-devel-ubuntu18.04  # n0259 CUDA 11.4
-## FROM nvidia/cuda:11.2.1-devel-ubuntu18.04  # n0005 CUDA 11.2
-FROM nvidia/cuda:11.2.1-devel-ubuntu18.04
+FROM nvidia/cuda:11.4.2-devel-ubuntu18.04
 # default aka :latest no longer supported.  https://hub.docker.com/r/nvidia/cuda
 
 MAINTAINER Tin (at) berkeley.edu
@@ -137,7 +137,7 @@ ENV JAVA_HOME=/usr/bin
 #CMD /opt/gitrepo/beast/bin/beast 
 # https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact
 
-ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
+ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast", "$@" ]
 #ENTRYPOINT [ "/bin/bash" ]
 #ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
 #ENTRYPOINT [ "Rscript", "/main.R" ]
