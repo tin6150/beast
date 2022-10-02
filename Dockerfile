@@ -8,7 +8,8 @@
 ## FROM nvidia/cuda:11.7.1-devel-ubuntu22.04  # hung A5000 with cuda 11.4/centos 7.9 (b15)
 ## FROM nvidia/cuda:11.2.1-devel-ubuntu18.04  # n0005 CUDA 11.2 >>  wrong opencl-icd
 ## FROM nvidia/cuda:11.4.2-devel-ubuntu18.04  # n0259 CUDA 11.4
-FROM nvidia/cuda:11.4.2-devel-ubuntu18.04
+FROM nvidia/cuda:11.4.2-devel-ubuntu20.04
+#?? FROM nvidia/cuda:11.4.0-devel-centos7
 # default aka :latest no longer supported.  https://hub.docker.com/r/nvidia/cuda
 
 MAINTAINER Tin (at) berkeley.edu
@@ -106,10 +107,10 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.0930.1630"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.1002.1040"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.0930.1630"
+ENV DBG_CONTAINER_VER  "Dockerfile 2022.1002.1040"
 ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles
@@ -137,7 +138,10 @@ ENV JAVA_HOME=/usr/bin
 #CMD /opt/gitrepo/beast/bin/beast 
 # https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact
 
-ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast", "$@" ]
+# $@ should be passed by docker run as arg when ENTRYPOINT is invoked
+# ref https://stackoverflow.com/questions/32727594/how-to-pass-arguments-to-shell-script-through-docker-run
+#ENTRYPOINT /opt/gitrepo/beast/bin/beast $*    # untested
+ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
 #ENTRYPOINT [ "/bin/bash" ]
 #ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
 #ENTRYPOINT [ "Rscript", "/main.R" ]
