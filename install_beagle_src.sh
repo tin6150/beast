@@ -47,6 +47,7 @@ make check
 echo $?
 echo "======================================================================"
 echo "==== running beast -beagle_info ====="
+echo "==== path inside build env problem, dont seems to work ==============="
 echo "======================================================================"
 /opt/gitrepo/beast/bin/beast -beagle_info
 echo $?

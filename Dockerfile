@@ -5,7 +5,9 @@
 
 
 #FROM debian:bullseye
-FROM nvidia/cuda:11.7.1-devel-ubuntu22.04
+## FROM nvidia/cuda:11.7.1-devel-ubuntu22.04  # hung A40 with cuda 11.4/centos 7.9 (b15)
+## FROM nvidia/cuda:11.4.2-devel-ubuntu18.04 # n0259 CUDA 11.4
+FROM nvidia/cuda:11.2.1-devel-ubuntu18.04    # n0005 CUDA 11.2
 # default aka :latest no longer supported.  https://hub.docker.com/r/nvidia/cuda
 
 MAINTAINER Tin (at) berkeley.edu
@@ -131,10 +133,10 @@ ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, bo
 
 ENV JAVA_HOME=/usr/bin
 #CMD /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher $*
-CMD /opt/gitrepo/beast/bin/beast 
+#CMD /opt/gitrepo/beast/bin/beast 
 # https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact
 
-#ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
+ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
 #ENTRYPOINT [ "/bin/bash" ]
 #ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
 #ENTRYPOINT [ "Rscript", "/main.R" ]
