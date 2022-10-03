@@ -1,4 +1,4 @@
-# Dockerfile for creating container to host BEAST
+# Dockerfile for creating container to host various phylogenic tools 
 # manual build, mostly:
 # docker build -f Dockerfile .  | tee LOG.Dockerfile.txt
 # see DevNotes.rst for more build details
@@ -12,7 +12,9 @@ FROM nvidia/cuda:11.4.2-devel-ubuntu20.04
 #?? FROM nvidia/cuda:11.4.0-devel-centos7
 # default aka :latest no longer supported.  https://hub.docker.com/r/nvidia/cuda
 
-MAINTAINER Tin (at) berkeley.edu
+LABEL Ref="https://github.com/tin6150/beast/"
+
+MAINTAINER Tin_at_berkeley.edu
 ARG DEBIAN_FRONTEND=noninteractive
 #ARG TERM=vt100
 ARG TERM=dumb
