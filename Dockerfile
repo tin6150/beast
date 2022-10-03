@@ -4,7 +4,13 @@
 # see DevNotes.rst for more build details
 
 
-FROM debian:bullseye
+## FROM debian:bullseye ## used by r* for OS package without beagle lib for gpu
+## FROM nvidia/cuda:11.7.1-devel-ubuntu22.04  # hung A5000 with cuda 11.4/centos 7.9 (b15)
+## FROM nvidia/cuda:11.2.1-devel-ubuntu18.04  # n0005 CUDA 11.2 >>  wrong opencl-icd
+## FROM nvidia/cuda:11.4.2-devel-ubuntu18.04  # n0259 CUDA 11.4
+FROM nvidia/cuda:11.4.2-devel-ubuntu20.04
+#?? FROM nvidia/cuda:11.4.0-devel-centos7
+# default aka :latest no longer supported.  https://hub.docker.com/r/nvidia/cuda
 
 MAINTAINER Tin (at) berkeley.edu
 ARG DEBIAN_FRONTEND=noninteractive
@@ -36,7 +42,7 @@ RUN echo ''  ;\
     test -d /opt/gitrepo/container  || mkdir -p /opt/gitrepo/container   ;\
     #the git command dont produce output, thought container run on the dir squatting on the git files.  COPY works... oh well
     #git branch |tee /opt/gitrepo/container/git.branch.out.txt            ;\
-    #git log --oneline --graph --decorate | tee /opt/gitrepo/container/git.lol.out.txt       ;\
+    git log --oneline --graph --decorate | tee /opt/gitrepo/container/git.lol.out.txt       ;\
     #--echo "--------" | tee -a _TOP_DIR_OF_CONTAINER_           ;\
     #--echo "git cloning the repo for reference/tracking" | tee -a _TOP_DIR_OF_CONTAINER_ ;\
     cd /     ;\
@@ -56,12 +62,43 @@ RUN echo  ''  ;\
     cd /     ;\
     echo ""  ;\
     echo '==================================================================' ;\
+    echo '==== install beagle gpu lib ===================== SKIP ===========' ;\
+    echo '==================================================================' ;\
     echo " calling external shell script..." | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     echo " cd to /opt/gitrepo/container/"    | tee -a _TOP_DIR_OF_CONTAINER_  ;\
     date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
     echo '==================================================================' ;\
     cd /opt/gitrepo/container     ;\
-    bash -x install_beast.sh 2>&1 | tee install_beast.log                     ;\
+    git branch |tee /opt/gitrepo/container/git.branch.out.txt                 ;\
+    # the install from source repo create dir, so cd /opt/gitrepo             ;\
+    cd /opt/gitrepo                                                           ;\
+    #ln -s /opt/gitrepo/container/install_beagle_src.sh .                      ;\
+    #bash -x install_beagle_src.sh 2>&1 | tee install_beagle_src.log           ;\
+    echo skipped beagle-lib install from source     ;\
+    cd /    ;\
+    echo ""
+
+
+RUN echo  ''  ;\
+    touch _TOP_DIR_OF_CONTAINER_  ;\
+    echo "begining docker build process at " | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    date | tee -a       _TOP_DIR_OF_CONTAINER_ ;\
+    export TERM=dumb      ;\
+    export NO_COLOR=TRUE  ;\
+    cd /     ;\
+    echo ""  ;\
+    echo '==================================================================' ;\
+    echo '==== install beast phylo sw ======================================' ;\
+    echo '==================================================================' ;\
+    echo " calling external shell script..." | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    echo " cd to /opt/gitrepo/container/"    | tee -a _TOP_DIR_OF_CONTAINER_  ;\
+    date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
+    echo '==================================================================' ;\
+    cd /opt/gitrepo/container     ;\
+    # the install from source repo create dir, so cd /opt/gitrepo             ;\
+    cd /opt/gitrepo                                                           ;\
+    ln -s /opt/gitrepo/container/install_phylo_tool.sh .                      ;\
+    bash -x install_phylo_tool.sh  2>&1 | tee install_phylo_tool.log          ;\
     cd /    ;\
     echo ""
 
@@ -71,10 +108,10 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.0930.1050"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.1002.1040"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.0930.1050"
+ENV DBG_CONTAINER_VER  "Dockerfile 2022.1002.1040"
 ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles
@@ -87,7 +124,6 @@ ENV TEST_DOCKER_ENV_REF https://vsupalov.com/docker-arg-env-variable-guide/#sett
 ENV TEST_DOCKER_ENV_YEQ1="Dockerfile ENV assignment as foo=bar, yes use of ="
 ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, both seems to work"
 
-
 # unsure how to append/add to PATH?  likely have to manually rewrite the whole ENV var
 #ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/conda/bin
 # above is PATH in :integrationU where R 4.1.1 on Debian 11  works on Ubuntu 16.04 path
@@ -95,9 +131,19 @@ ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, bo
 #-- ENV PATH=/usr/lib/R/bin/exec:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #-- unset path to ensure it didn't make Rscript behave worse cuz somehow "test" got masked/lost
 
+# /usr/local/lib is searched by beagle, no need to set it
+#ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/.singularity.d/libs:/usr/local/lib
 
+ENV JAVA_HOME=/usr/bin
+#CMD /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher $*
+#CMD /opt/gitrepo/beast/bin/beast 
+# https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact
 
-ENTRYPOINT [ "/bin/bash" ]
+# $@ should be passed by docker run as arg when ENTRYPOINT is invoked
+# ref https://stackoverflow.com/questions/32727594/how-to-pass-arguments-to-shell-script-through-docker-run
+#ENTRYPOINT /opt/gitrepo/beast/bin/beast $*    # untested
+ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
+#ENTRYPOINT [ "/bin/bash" ]
 #ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
 #ENTRYPOINT [ "Rscript", "/main.R" ]
 
