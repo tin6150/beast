@@ -17,7 +17,7 @@ export NO_COLOR=1
 # beast2-mcmc/stable 2.6.3+dfsg-2 all
 apt-get -y --quiet update 
 apt-get -y --quiet install libhmsbeagle1v5 libhmsbeagle-java libhmsbeagle-dev libhmsbeagle-dev  libpll0 libpll-dev libpal-java 
-apt-get -y --quiet install beast2-mcmc beast2-mcmc-examples beast2-mcmc-doc mrbayes mrbayes-doc mrbayes-mpi raxml  mafft muscle libmuscle1 libmuscle-dev tree-puzzle tree-ppuzzle-doc sumtrees seaview phyx phyutility physamp phyml phast paml  njplot  metaphlan2 metaphlan2-data clearcut examl fastdnaml 
+apt-get -y --quiet install beast2-mcmc beast2-mcmc-examples beast2-mcmc-doc mrbayes mrbayes-doc mrbayes-mpi raxml  mafft muscle libmuscle1 libmuscle-dev tree-puzzle tree-puzzle-doc sumtrees seaview phyx phyutility physamp phyml phast paml  njplot  metaphlan2 metaphlan2-data clearcut examl fastdnaml 
 echo $?
 apt-get -y --quiet install figtree bali-phy treeviewx  belvu bppphyview 
 echo $?

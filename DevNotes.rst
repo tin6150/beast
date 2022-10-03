@@ -16,3 +16,9 @@ singularity run --nv $cacheDir/image/phylotool.sif  # entrypoint=/usr/bin/mb # M
 
 cd ~/gs/tin-gh/beast2/examples/
 singularity exec --nv $cacheDir/image/phylotool.sif /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher -beagle_GPU testHKY.xml # 
+
+~~~~
+
+docker pull ghcr.io/tin6150/beast:tool
+docker save ghcr.io/tin6150/beast -o phytool.dimg
+docker run -v ~:/mnt -it --gpus all --entrypoint=/bin/bash ghcr.io/tin6150/beast:tool
