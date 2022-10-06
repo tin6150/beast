@@ -52,6 +52,7 @@ RUN echo ''  ;\
 
 # add some marker of how Docker was build.
 COPY .              /opt/gitrepo/container/
+COPY dispatcher.sh  /
 #COPY Dockerfile*   /opt/gitrepo/container/
 
 
@@ -145,7 +146,8 @@ ENV JAVA_HOME=/usr/bin
 # ref https://stackoverflow.com/questions/32727594/how-to-pass-arguments-to-shell-script-through-docker-run
 #ENTRYPOINT /opt/gitrepo/beast/bin/beast $*    # untested
 #ENTRYPOINT [ "/opt/gitrepo/beast/bin/beast" ]
-ENTRYPOINT [ "/usr/bin/mb" ]
+#ENTRYPOINT [ "/usr/bin/mb" ]
+ENTRYPOINT [ "/dispatcher.sh"]
 #ENTRYPOINT [ "/bin/bash" ]
 #ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
 #ENTRYPOINT [ "Rscript", "/main.R" ]

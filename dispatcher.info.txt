@@ -1,0 +1,11 @@
+
+# dispatcher.sh is container entrypoint to invoke desired binary
+
+# test with this:
+
+
+ProgName=dispatcher.sh
+ln -s $ProgName mb
+ln -s $ProgName mafft
+ln -s $ProgName tree-puzzle
+ln -s $ProgName metaphlan2
