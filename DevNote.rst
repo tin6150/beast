@@ -8,8 +8,8 @@
 
 git checkout v2.6.4 # from source 
 docker build -t tin6150/beast:v2.6.4 -f Dockerfile .  | tee LOG.Dockerfile.v264.txt
-docker run -it --entrypoint=bash --gpu all tin6150/beast:v2.6.4
-docker run -v ~:/mnt -it --gpu all --entrypoint=bash tin6150/beast:v2.6.4
+docker run -it --entrypoint=bash --gpus all tin6150/beast:v2.6.4
+docker run -v ~:/mnt -it --gpus all --entrypoint=bash tin6150/beast:v2.6.4
 
 
 ~~~~~~
@@ -120,12 +120,28 @@ singularity exec --nv $cacheDir/image/beast2.6.4+beagle_b17.sif /usr/bin/java -D
 	beignet-opencl-icd: no supported GPU found, this is probably the wrong opencl-icd package for this hardware
 	(If you have multiple ICDs installed and OpenCL works, you can ignore this message)
 
-b18 cuda 11.4 bubuntu 18.04 ENTRYPOINT=bin/beast $@
+b18 cuda 11.4 ubuntu 18.04 ENTRYPOINT=bin/beast $@
 	still not taking param
 	>>failed>> n0005, n0259
 	beignet-opencl-icd: no supported GPU found, this is probably the wrong opencl-icd package for this hardware
 	(If you have multiple ICDs installed and OpenCL works, you can ignore this message)	
 	OpenCL error: CL_DEVICE_NOT_FOUND from file <GPUInterfaceOpenCL.cpp>, line 118.
+
+b20 cuda 11.4 ubuntu 20.04 ENTRYPOINT=bin/beast
+	finally worked!  259=yes,005=fail
+	$cacheDir/image/beast2.6.4+beagle_b20.sif -beagle_info works but beagle only see cpu
+	$cacheDir/image/beast2.6.4+beagle_b20.sif -java       testHKY.xml  #  4s/Msamples
+	$cacheDir/image/beast2.6.4+beagle_b20.sif -beagle_CPU testHKY.xml  #  2s/Msamples
+	$cacheDir/image/beast2.6.4+beagle_b20.sif -beagle_SSE testHKY.xml  #  2s/Msamples
+	$cacheDir/image/beast2.6.4+beagle_b20.sif -threads 16 testHKY.xml  #  2s/Msamples
+	singularity run --nv $cacheDir/image/beast2.6.4+beagle_b20.sif -beagle_GPU testHKY.xml #  28s/Msamples  (sole job on machine)
+	singularity run --nv $cacheDir/image/beast2.6.4+beagle_b20.sif -beagle_GPU testHKY.xml # 2m47s/Msamples (multiple jobs on machine)
+
+singularity exec --nv $cacheDir/image/beast2.6.4+beagle_b20.sif /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher -beagle_GPU testHKY.xml # 2m36s/Msamples
+singularity exec --nv $cacheDir/image/beast2.6.4+beagle_b20.sif /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher -beagle_GPU -beagle_single testHKY.xml # 3m51s/Msamples
+
+
+singularity exec --nv /global/home/groups/consultsw/sl-7.x86_64/modules/beast2/2.6.4/beast264 /usr/bin/java -Dlauncher.wait.for.exit=true -Xms256m -Xmx8g -Duser.language=en -cp /opt/gitrepo/beast/lib/launcher.jar beast.app.beastapp.BeastLauncher -beagle_GPU -beagle_single testHKY.xml # 23s/Msamples
 
 ~~~~~
 
