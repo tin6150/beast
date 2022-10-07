@@ -22,3 +22,7 @@ singularity exec --nv $cacheDir/image/phylotool.sif /usr/bin/java -Dlauncher.wai
 docker pull ghcr.io/tin6150/beast:tool
 docker save ghcr.io/tin6150/beast -o phytool.dimg
 docker run -v ~:/mnt -it --gpus all --entrypoint=/bin/bash ghcr.io/tin6150/beast:tool
+
+docker run -v ~:/mnt -it  ghcr.io/tin6150/beast:tool
+#  actually can't test dispatcher with docker... 
+

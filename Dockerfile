@@ -111,10 +111,10 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.1002.2040"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.1006.2040"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.1002.2040"
+ENV DBG_CONTAINER_VER  "Dockerfile 2022.1006.2040"
 ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles

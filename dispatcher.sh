@@ -1,12 +1,18 @@
 #!/bin/bash
 
 # container entrypoint to invoke desired binary
+# intended for use by singularity 
+# that save image to file and name (or symlink) file with the desired app name
+# see dispatcher.info.txt 
 
-FileName=$0
+# FileName=$0
 AdditionalArgs=$@
 # echo "arg0 aka filename is : $FileName" 
 # echo "dollar-at is : $AdditionalArgs" 
 # 
+# singularity onion cake has things in many layers
+# no longer $0, but this should work.
+FileName=$SINGULARITY_NAME
 
 BaseFileName=$(basename $FileName)
 

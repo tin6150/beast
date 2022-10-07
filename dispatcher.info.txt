@@ -1,10 +1,14 @@
 
 # dispatcher.sh is container entrypoint to invoke desired binary
+# doesn't seems to work, likely cuz singularity itself is a wrapper and 
+# the param get hidden deep into the many layers of the onion rather than being $0
+# use $SINGULARITY_NAME
 
 # test with this:
 
 
 ProgName=dispatcher.sh
+ProgName=phylotool.sif
 ln -s $ProgName mb
 ln -s $ProgName mafft
 ln -s $ProgName tree-puzzle
