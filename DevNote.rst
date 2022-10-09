@@ -10,6 +10,18 @@ the binary may expire?  once version 5.0 is out?
 
 ~~~~~
 
+[[ -d /global/scratch/users/${USER}/cacheDir ]] && export cacheDir=/global/scratch/users/${USER}/cacheDir
+[[ -d $cacheDir ]] && export SINGULARITY_CACHEDIR=$cacheDir
+[[ -d $cacheDir ]] && export SINGULARITY_TMPDIR=$cacheDir
+[[ -d $cacheDir ]] && export SINGULARITY_WORKDIR=$cacheDir
+
+cd $cacheDir
+singularity pull --name paup.sif  docker://ghcr.io/tin6150/phylotool:paup4
+
+
+~~~~
+
+
 docker build -t tin6150/paup40a168 -f Dockerfile .  | tee LOG.Dockerfile.txt
 docker run -it --entrypoint=bash tin6150/paup40a168
 
@@ -17,3 +29,5 @@ docker run -it --entrypoint=bash tin6150/paup40a168
 docker pull ghcr.io/tin6150/phylotool:paup
 
  docker run -it --entrypoint=/bin/bash  ghcr.io/tin6150/phylotool:tool
+
+

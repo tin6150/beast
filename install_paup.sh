@@ -24,6 +24,7 @@ wget --quiet http://phylosolutions.com/paup-test/paup4a168_ubuntu64.gz
 echo $?
 gunzip paup4a168_ubuntu64.gz
 echo $?
+chmod a+x paup4a168_ubuntu64 
 ln -s  paup4a168_ubuntu64 paup
 
 date
