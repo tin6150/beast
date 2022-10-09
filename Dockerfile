@@ -48,7 +48,6 @@ RUN echo ''  ;\
 # add some marker of how Docker was build.
 COPY .              /opt/gitrepo/container/
 #COPY Dockerfile*   /opt/gitrepo/container/
-COPY dispatcher.sh  /
 
 
 RUN echo  ''  ;\
