@@ -1,3 +1,8 @@
+see dispatcher.info.txt on info how to setup sym link to an singularity image
+so that the desired phylogenetic program get executed
+
+~~~~
+
 branch:
 tool:   contain mrbayes, mafft, muscle and many phylo tool avail from apt install.
 
@@ -25,4 +30,14 @@ docker run -v ~:/mnt -it --gpus all --entrypoint=/bin/bash ghcr.io/tin6150/beast
 
 docker run -v ~:/mnt -it  ghcr.io/tin6150/beast:tool
 #  actually can't test dispatcher with docker... 
+
+# attempt to save the docker image to run on machines without direct internet connection...
+# didn't quite work, missing something, need to lookup how the registry server was configured, TBD...
+
+docker save ghcr.io/tin6150/beast -o phytool.tar
+docker import  phytool_incomplete2.tar
+docker image ls
+docker tag 3abd87b19d83 phytool_incomplete2
+docker run -v ~:/mnt -it --gpus all --entrypoint=/bin/bash phytool_incomplete2
+nope, something wrong.  dig import from registry
 
