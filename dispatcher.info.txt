@@ -10,6 +10,11 @@
 ProgName=dispatcher.sh
 ProgName=phylotool.sif
 ln -s $ProgName mb
+ln -s $ProgName muscle
 ln -s $ProgName mafft
+# new in build 34:
+ln -s $ProgName clustalw
+ln -s $ProgName clustalo
+# untested:
 ln -s $ProgName tree-puzzle
 ln -s $ProgName metaphlan2
