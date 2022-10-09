@@ -1,12 +1,15 @@
-# Dockerfile for creating container to host BEAST
-# manual build, mostly:
-# docker build -f Dockerfile .  | tee LOG.Dockerfile.txt
-# see DevNotes.rst for more build details
+# Dockerfile for creating container to host PAUP* (ver 4.0 a168)
+# http://phylosolutions.com/paup-test/
+# see DevNotes.rst for manual build details 
 
 
-FROM debian:bullseye
+FROM Ubuntu:20.04
+#FROM debian:bullseye
 
-MAINTAINER Tin (at) berkeley.edu
+LABEL ABOUT1="https://github.com/tin6150/phylotool/"
+LABEL ABOUT2="http://phylosolutions.com/paup-test/"
+
+MAINTAINER Tin_at_berkeley.edu
 ARG DEBIAN_FRONTEND=noninteractive
 #ARG TERM=vt100
 ARG TERM=dumb
@@ -25,7 +28,8 @@ RUN echo  ''  ;\
     export TERM=dumb      ;\
     export NO_COLOR=TRUE  ;\
     apt-get update ;\
-    apt-get -y --quiet install git git-all screen tmux  ;\
+    apt-get -y --quiet install git git-all file wget curl gzip bash zsh fish tcsh less vim procps screen tmux ;\
+    apt-get -y --quiet install apt-file ;\
     cd /    ;\
     echo ""
 
@@ -44,6 +48,7 @@ RUN echo ''  ;\
 # add some marker of how Docker was build.
 COPY .              /opt/gitrepo/container/
 #COPY Dockerfile*   /opt/gitrepo/container/
+COPY dispatcher.sh  /
 
 
 RUN echo  ''  ;\
@@ -60,7 +65,10 @@ RUN echo  ''  ;\
     date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
     echo '==================================================================' ;\
     cd /opt/gitrepo/container     ;\
-    bash -x install_beast.sh 2>&1 | tee install_beast.log                     ;\
+    # the install from source repo create dir, so cd /opt/gitrepo             ;\
+    cd /opt/gitrepo                                                           ;\
+    ln -s /opt/gitrepo/container/install_paup.sh .                            ;\
+    bash -x install_paup.sh 2>&1 | tee install_paup.log                       ;\
     cd /    ;\
     echo ""
 
@@ -70,10 +78,10 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.0929.2100"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.1008.1846"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.0929.210"
+ENV DBG_CONTAINER_VER  "Dockerfile 2022.1008.1846"
 ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles
@@ -96,7 +104,8 @@ ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, bo
 
 
 
-ENTRYPOINT [ "/bin/bash" ]
+ENTRYPOINT [ "/opt/paup/paup4a168_ubuntu64" ]
+#ENTRYPOINT [ "/bin/bash" ]
 #ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
 #ENTRYPOINT [ "Rscript", "/main.R" ]
 
