@@ -3,7 +3,7 @@
 # see DevNotes.rst for manual build details 
 
 
-FROM Ubuntu:20.04
+FROM ubuntu:20.04
 #FROM debian:bullseye
 
 LABEL ABOUT1="https://github.com/tin6150/phylotool/"
