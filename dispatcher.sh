@@ -47,6 +47,12 @@ examl)
 	/usr/bin/examl 	$AdditionalArgs ;;
 figtree)
 	/usr/bin/figtree 	$AdditionalArgs ;;
+clustalw)
+	/usr/bin/clustalw 	$AdditionalArgs ;;
+clustalo)
+	/usr/bin/clustalo 	$AdditionalArgs ;;
+clustalx)
+	/usr/bin/clustalx 	$AdditionalArgs ;;
 *)
 	#echo "unknown, dropping into the shell (inside singularity)";;
 	/bin/bash ;;
