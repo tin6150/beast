@@ -24,3 +24,5 @@ ln -s $ProgName snp-sites
 ln -s $ProgName run_gubbins
 ln -s $ProgName iqtree
 ln -s $ProgName roary
+# new in build 38:
+ln -s $ProgName art

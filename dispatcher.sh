@@ -63,6 +63,8 @@ run-gubbins)
 	/usr/bin/run-gubbins 	$AdditionalArgs ;;
 iqtree)
 	/usr/bin/iqtree 	$AdditionalArgs ;;
+art)
+	/usr/bin/art 	$AdditionalArgs ;;
 #  this next one maybe a bad idea... but hoping to be able to generically allow `phylotool.sif clustalw arg1`  or the like
 #  `phylotool sudo RM ...` with ... being something else maybe disastrous ... in docker.   (?)
 phylotool.sif)
