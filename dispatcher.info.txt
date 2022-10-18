@@ -18,3 +18,9 @@ ln -s $ProgName clustalo
 # untested:
 ln -s $ProgName tree-puzzle
 ln -s $ProgName metaphlan2
+# new in build 37:
+ln -s $ProgName prokka
+ln -s $ProgName snp-sites
+ln -s $ProgName run_gubbins
+ln -s $ProgName iqtree
+ln -s $ProgName roary

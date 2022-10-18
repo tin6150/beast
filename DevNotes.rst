@@ -12,7 +12,7 @@ tool:   contain mrbayes, mafft, muscle and many phylo tool avail from apt instal
 [[ -d $cacheDir ]] && export SINGULARITY_WORKDIR=$cacheDir
 
 cd $cacheDir
-singularity pull --name phylotool.sif  docker://ghcr.io/tin6150/beast:tool
+singularity pull --name phylotool.sif  docker://ghcr.io/tin6150/phylotool:tool
 
 
 
