@@ -65,8 +65,13 @@ iqtree)
 	/usr/bin/iqtree 	$AdditionalArgs ;;
 art)
 	/usr/bin/art 	$AdditionalArgs ;;
-#  this next one maybe a bad idea... but hoping to be able to generically allow `phylotool.sif clustalw arg1`  or the like
-#  `phylotool sudo RM ...` with ... being something else maybe disastrous ... in docker.   (?)
+#  this next one maybe a bad idea... 
+#  but works well `phylotool.sif prokka --listdb` works.  
+#  expect it to work for other things that is not coded in this dispatcher
+#  so keeping this, albeit:
+#  `phylotool sudo RM ...` maybe disastrous ... in docker. 
+#  Hmm... could also rely on 
+#  singularity exec phylotool.sif roary
 phylotool.sif)
 	$AdditionalArgs ;;
 *)
