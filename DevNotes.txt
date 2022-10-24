@@ -57,7 +57,8 @@ nope, something wrong.  dig import from registry
 
 from http://sanger-pathogens.github.io/snp-sites/
 
-Bioconda produce a Docker container so you can use the software out of the box. Install Docker and then pull the container from Bioconda https://quay.io/repository/biocontainers/snp-sites
+Bioconda produce a Docker container so you can use the software out of the box. Install Docker and then pull the container from Bioconda 
+https://quay.io/repository/biocontainers/snp-sites
 
 maybe pull their container and run things similar to
 alias snp-sites="singularity exec /global/scratch/users/tin/cacheDir/phylotool.sif snp-sites"

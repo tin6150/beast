@@ -84,7 +84,7 @@ RUN echo  ''  ;\
 RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.1017"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.1023"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "trigger flag to clear cache"
 
 RUN echo  ''  ;\
@@ -116,10 +116,10 @@ RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.1017.2230 b38:art"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  "Dockerfile 2022.1023 b39:libsquizz"   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.1017.2230 b38:art"
+ENV DBG_CONTAINER_VER  "Dockerfile 2022.1023 b39:libsquizz"
 ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles
