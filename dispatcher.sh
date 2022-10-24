@@ -65,6 +65,10 @@ iqtree)
 	/usr/bin/iqtree 	$AdditionalArgs ;;
 art)
 	/usr/bin/art 	$AdditionalArgs ;;
+squizz)
+	/usr/bin/squizz 	$AdditionalArgs ;;
+NCLconverter)
+	/usr/bin/NCLconverter 	$AdditionalArgs ;;
 #  this next one maybe a bad idea... 
 #  but works well `phylotool.sif prokka --listdb` works.  
 #  expect it to work for other things that is not coded in this dispatcher

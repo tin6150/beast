@@ -26,3 +26,6 @@ ln -s $ProgName iqtree
 ln -s $ProgName roary
 # new in build 38:
 ln -s $ProgName art
+# new in build 39/40:
+ln -s $ProgName squizz
+ln -s $ProgName NCLconverter
