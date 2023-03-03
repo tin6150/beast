@@ -10,6 +10,9 @@ alternatetively,
 see dispatcher.info.txt on info how to setup sym link to an singularity image
 so that the desired phylogenetic program get executed
 
+or create shell script that run
+singularity exec phylotool.sif /usr/bin/app-name $*
+
 ~~~~
 
 branch:
@@ -60,5 +63,12 @@ from http://sanger-pathogens.github.io/snp-sites/
 Bioconda produce a Docker container so you can use the software out of the box. Install Docker and then pull the container from Bioconda 
 https://quay.io/repository/biocontainers/snp-sites
 
+https://quay.io/repository/biocontainers/abricate
+singularity pull --name abricate.sif docker://quay.io/biocontainers/abricate:1.0.1--ha8f3691_1
+
 maybe pull their container and run things similar to
 alias snp-sites="singularity exec /global/scratch/users/tin/cacheDir/phylotool.sif snp-sites"
+
+or snippy (v3.0) since I don't have it yet.
+singularity pull --name snippy.sif quay.io/biocontainers/snippy:4.6.0--hdfd78af_2
+singularity exec /clusterfs/vector/home/groups/software/sl-7.x86_64/modules/snippy/4.6.0/snippy.sif /usr/local/bin/snippy

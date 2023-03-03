@@ -29,3 +29,17 @@ ln -s $ProgName art
 # new in build 39/40:
 ln -s $ProgName squizz
 ln -s $ProgName NCLconverter
+
+## this can list the commands avail by dispatcher.sh
+## just be careful to trim out the non-command matches
+
+## cat dispatcher.sh | fgrep \)  | awk -F\) '{print "ln -s phylotool.sif " $1}'
+
+
+#####
+
+## yet another way, which does not depends on the dispatcher.sh
+## is to create shell script, eg run_gubbins.sh, dropping .sh as desired,
+## which contains the command to run the container, eg
+## singularity exec /full/path/to/phylotool.sif /usr/bin/run_gubbins $*
+## full path maybe necessary so that the script can be called from any dir

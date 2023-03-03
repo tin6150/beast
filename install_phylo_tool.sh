@@ -22,5 +22,10 @@ echo $?
 # these are mostly/all GUI apps:
 apt-get -y --quiet install figtree bali-phy treeviewx  belvu bppphyview seaview  clustalx artemis
 echo $?
+echo "=================================================="
+echo "2023-0303 addition for bacterial genome processing"
+echo "=================================================="
+apt-get -y --quiet install unicycler
+echo $?
 
 date

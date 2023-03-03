@@ -59,25 +59,26 @@ roary)
 	/usr/bin/roary 	$AdditionalArgs ;;
 snp-sites)
 	/usr/bin/snp-sites 	$AdditionalArgs ;;
-run-gubbins)
-	/usr/bin/run-gubbins 	$AdditionalArgs ;;
+run_gubbins)
+	/usr/bin/run_gubbins 	$AdditionalArgs ;;
 iqtree)
 	/usr/bin/iqtree 	$AdditionalArgs ;;
 art)
 	/usr/bin/art 	$AdditionalArgs ;;
 squizz)
 	/usr/bin/squizz 	$AdditionalArgs ;;
+unicycler)
+	/usr/bin/unicycler 	$AdditionalArgs ;;
 NCLconverter)
 	/usr/bin/NCLconverter 	$AdditionalArgs ;;
-#  this next one maybe a bad idea... 
+#  this next one maybe a bad idea, kinda dangerous, so not keeping it
 #  but works well `phylotool.sif prokka --listdb` works.  
 #  expect it to work for other things that is not coded in this dispatcher
-#  so keeping this, albeit:
 #  `phylotool sudo RM ...` maybe disastrous ... in docker. 
-#  Hmm... could also rely on 
+#  Hmm... could also create a roary.sh script that invoke:
 #  singularity exec phylotool.sif roary
-phylotool.sif)
-	$AdditionalArgs ;;
+#//phylotool.sif)
+#//	$AdditionalArgs ;;
 *)
 	#echo "unknown, dropping into the shell (inside singularity)";;
 	/bin/bash ;;
