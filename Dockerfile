@@ -5,7 +5,9 @@
 
 
 #FROM debian:bullseye
-FROM continuumio:miniconda3
+#FROM continuumio:miniconda3
+#FROM continuumio/miniconda3:latest
+FROM continuumio/miniconda3:22.11.1
 
 MAINTAINER Tin (at) berkeley.edu
 ARG DEBIAN_FRONTEND=noninteractive
@@ -71,7 +73,7 @@ RUN echo  ''  ;\
     echo ""
 
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2023.0119 draftG1"
+ENV DBG_CONTAINER_VER  "Dockerfile 2023.0322"
 ENV DBG_DOCKERFILE Dockerfile
 
 RUN  cd / \
