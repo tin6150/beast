@@ -73,7 +73,7 @@ RUN echo  ''  ;\
     echo ""
 
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2023.0322"
+ENV DBG_CONTAINER_VER  "Dockerfile 2023.0323"
 ENV DBG_DOCKERFILE Dockerfile
 
 RUN  cd / \
@@ -104,8 +104,7 @@ ENV TEST_DOCKER_ENV_NEQ1 "Dockerfile ENV assignment as foo bar, no  use of =, bo
 
 
 
-ENTRYPOINT [ "/bin/bash" ]
-#ENTRYPOINT [ "Rscript", "/opt/gitrepo/atlas/main.R" ]
-#ENTRYPOINT [ "Rscript", "/main.R" ]
+#ENTRYPOINT [ "/bin/bash" ]
+ENTRYPOINT [ "/opt/conda/bin/abricate" ]
 
 # vim: shiftwidth=4 tabstop=4 formatoptions-=cro nolist nu syntax=on
