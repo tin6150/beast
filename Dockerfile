@@ -1,10 +1,11 @@
-# Dockerfile for creating container to host BEAST
+# Dockerfile for creating container to conda, mamba, Abricate
 # manual build, mostly:
 # docker build -f Dockerfile .  | tee LOG.Dockerfile.txt
 # see DevNotes.rst for more build details
 
 
-FROM debian:bullseye
+#FROM debian:bullseye
+FROM continuumio:miniconda3
 
 MAINTAINER Tin (at) berkeley.edu
 ARG DEBIAN_FRONTEND=noninteractive
@@ -13,6 +14,10 @@ ARG TERM=dumb
 ARG TZ=PST8PDT
 #https://no-color.org/
 ARG NO_COLOR=1
+
+LABEL Ref=https://github.com/tseemann/abricate
+LABEL Ref=https://github.com/tin6150/phylotool
+
 
 
 # will use stand alone script to do most of the installation
@@ -61,21 +66,21 @@ RUN echo  ''  ;\
     date | tee -a      _TOP_DIR_OF_CONTAINER_                                 ;\
     echo '==================================================================' ;\
     cd /opt/gitrepo/container     ;\
-    bash -x install_beast.sh 2>&1 | tee install_beast.log                     ;\
+    bash -x install_abricate.sh 2>&1 | tee install_abricate.log                     ;\
     cd /    ;\
     echo ""
 
 
+ENV DBG_CONTAINER_VER  "Dockerfile 2023.0119 draftG1"
+ENV DBG_DOCKERFILE Dockerfile
 
 RUN  cd / \
   && touch _TOP_DIR_OF_CONTAINER_  \
   && echo  "--------" >> _TOP_DIR_OF_CONTAINER_   \
   && TZ=PST8PDT date  >> _TOP_DIR_OF_CONTAINER_   \
-  && echo  "Dockerfile 2022.0930.1050"   >> _TOP_DIR_OF_CONTAINER_   \
+  && echo  $DBG_CONTAINER_VER   >> _TOP_DIR_OF_CONTAINER_   \
   && echo  "Grand Finale for Dockerfile"
 
-ENV DBG_CONTAINER_VER  "Dockerfile 2022.0930.1050"
-ENV DBG_DOCKERFILE Dockerfile
 
 ENV TZ America/Los_Angeles
 # ENV TZ likely changed/overwritten by container's /etc/csh.cshrc
